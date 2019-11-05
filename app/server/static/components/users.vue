@@ -61,10 +61,28 @@
               )
                 | {{ otherRole.name }}
           b-table-column(label="Action")
-            a.button.is-text(v-on:click="removeRoleMapping(props.row.id)")
+            a.button.is-text(v-on:click="confirmDeleteModal(props.row)")
               span.icon.is-small
                 i.fas.fa-trash
               span Delete
+
+    div.modal(v-if="isDeleteModalOpen",
+              v-bind:class="{ 'is-active': isDeleteModalOpen }"
+              :data="deleteModalData")
+      div.modal-background
+      div.modal-card
+        header.modal-card-head
+          p.modal-card-title Delete User
+          button.delete(
+            v-on:click="isDeleteModalOpen = !isDeleteModalOpen"
+            aria-label="close"
+          )
+        section.modal-card-body
+          p Are you sure you want to delete the user <b>{{ deleteModalData.username }}</b>?
+        footer.modal-card-foot.pt20.pb20.pr20.pl20.has-background-white-ter
+          a.button.is-primary(v-on:click="removeRoleMapping(deleteModalData.id)")
+              span Delete
+          button.button(v-on:click="isDeleteModalOpen = !isDeleteModalOpen") Cancel
 </template>
 
 <style>
@@ -99,6 +117,8 @@ export default {
     allUsers: [],
     otherUsers: [],
     roles: [],
+    isDeleteModalOpen: false,
+    deleteModalData: null,
   }),
 
   computed: {
@@ -158,7 +178,13 @@ export default {
       this.newRoleMapping = null;
     },
 
+    confirmDeleteModal(userData) {
+      this.deleteModalData = userData;
+      this.isDeleteModalOpen = !this.isDeleteModalOpen;
+    },
+
     removeRoleMapping(roleMappingId) {
+      this.isDeleteModalOpen = !this.isDeleteModalOpen;
       HTTP.delete(`roles/${roleMappingId}`).then(() => {
         this.roleMappings = this.roleMappings.filter(
           roleMapping => roleMapping.id !== roleMappingId,
