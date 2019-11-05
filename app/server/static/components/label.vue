@@ -111,10 +111,26 @@
                       span Edit
 
                   p.control
-                    a.button.is-text(v-on:click="removeLabel(label)")
+                    a.button.is-text(v-on:click="confirmDeleteModal(label)")
                       span.icon.is-small
                         i.fas.fa-trash
                       span Delete
+
+          div.modal(v-if="isDeleteModalOpen" v-bind:class="{ 'is-active': isDeleteModalOpen }" :data="deleteModalData")
+            div.modal-background
+            div.modal-card
+              header.modal-card-head
+                p.modal-card-title Delete Label 
+                button.delete(
+                  v-on:click="isDeleteModalOpen = !isDeleteModalOpen"
+                  aria-label="close"
+                )
+              section.modal-card-body.modal-card-body-footer
+                p Are you sure you want to delete the label <b>{{ deleteModalData.text }}</b>?
+                a.button.is-primary(v-on:click="removeLabel(deleteModalData)")
+                    span Yes, delete!
+                    span.icon.is-small
+                      i.fas.fa-trash
 
           div.columns(v-show="label === editedLabel")
             div.column
@@ -205,6 +221,8 @@ export default {
     editedLabel: null,
     messages: [],
     shortKeys: 'abcdefghijklmnopqrstuvwxyz',
+    isDeleteModalOpen: false,
+    deleteModalData: null,
   }),
 
   created() {
@@ -268,8 +286,14 @@ export default {
         });
     },
 
+    confirmDeleteModal(label) {
+      this.deleteModalData = label;
+      this.isDeleteModalOpen = !this.isDeleteModalOpen;
+    },
+
     removeLabel(label) {
       const labelId = label.id;
+      this.isDeleteModalOpen = !this.isDeleteModalOpen;
       HTTP.delete(`labels/${labelId}`).then(() => {
         const index = this.labels.indexOf(label);
         this.labels.splice(index, 1);
