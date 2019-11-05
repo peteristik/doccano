@@ -68,7 +68,7 @@
 
     div.modal(v-if="isDeleteModalOpen",
               v-bind:class="{ 'is-active': isDeleteModalOpen }"
-              :data="deleteModalData")
+              v-bind:data="deleteModalData")
       div.modal-background
       div.modal-card
         header.modal-card-head
