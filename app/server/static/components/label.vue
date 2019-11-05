@@ -125,12 +125,12 @@
                   v-on:click="isDeleteModalOpen = !isDeleteModalOpen"
                   aria-label="close"
                 )
-              section.modal-card-body.modal-card-body-footer
+              section.modal-card-body
                 p Are you sure you want to delete the label <b>{{ deleteModalData.text }}</b>?
+              footer.modal-card-foot.pt20.pb20.pr20.pl20.has-background-white-ter
                 a.button.is-primary(v-on:click="removeLabel(deleteModalData)")
-                    span Yes, delete!
-                    span.icon.is-small
-                      i.fas.fa-trash
+                    span Delete
+                button.button(v-on:click="isDeleteModalOpen = !isDeleteModalOpen") Cancel
 
           div.columns(v-show="label === editedLabel")
             div.column
