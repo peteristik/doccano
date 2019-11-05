@@ -72,13 +72,13 @@
       div.modal-background
       div.modal-card
         header.modal-card-head
-          p.modal-card-title Delete User
+          p.modal-card-title Delete User Role
           button.delete(
             v-on:click="isDeleteModalOpen = !isDeleteModalOpen"
             aria-label="close"
           )
         section.modal-card-body
-          p Are you sure you want to delete the user <b>{{ deleteModalData.username }}</b>?
+          p Are you sure you want to delete the role for user <b>{{ deleteModalData.username }}</b>?
         footer.modal-card-foot.pt20.pb20.pr20.pl20.has-background-white-ter
           a.button.is-primary(v-on:click="removeRoleMapping(deleteModalData.id)")
               span Delete
