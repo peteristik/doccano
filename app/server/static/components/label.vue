@@ -116,11 +116,13 @@
                         i.fas.fa-trash
                       span Delete
 
-          div.modal(v-if="isDeleteModalOpen" v-bind:class="{ 'is-active': isDeleteModalOpen }" :data="deleteModalData")
+          div.modal(v-if="isDeleteModalOpen",
+                    v-bind:class="{ 'is-active': isDeleteModalOpen }"
+                    :data="deleteModalData")
             div.modal-background
             div.modal-card
               header.modal-card-head
-                p.modal-card-title Delete Label 
+                p.modal-card-title Delete Label
                 button.delete(
                   v-on:click="isDeleteModalOpen = !isDeleteModalOpen"
                   aria-label="close"
