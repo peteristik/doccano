@@ -114,7 +114,7 @@ class TextClassificationProjectSerializer(ProjectSerializer):
     class Meta:
         model = TextClassificationProject
         fields = ('id', 'name', 'description', 'guideline', 'users', 'current_users_role', 'project_type', 'image',
-                  'updated_at', 'randomize_document_order')
+                  'updated_at', 'randomize_document_order', 'collaborative_annotation')
         read_only_fields = ('image', 'updated_at', 'users', 'current_users_role')
 
 
@@ -124,7 +124,7 @@ class SequenceLabelingProjectSerializer(ProjectSerializer):
     class Meta:
         model = SequenceLabelingProject
         fields = ('id', 'name', 'description', 'guideline', 'users', 'current_users_role', 'project_type', 'image',
-                  'updated_at', 'randomize_document_order')
+                  'updated_at', 'randomize_document_order', 'collaborative_annotation')
         read_only_fields = ('image', 'updated_at', 'users', 'current_users_role')
 
 
